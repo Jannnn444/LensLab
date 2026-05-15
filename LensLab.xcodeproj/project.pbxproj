@@ -1,0 +1,322 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		EDEBCE738BDD41C5BBF907EA /* LensLabApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F4CE486A994551BD55D88D /* LensLabApp.swift */; };
+		344A3CBB43FB42EF80A06AC9 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652EC82943754D088B67A01A /* Theme.swift */; };
+		97884F731635489DA0B93430 /* FilterEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30363227A4A44FF6845DAA6B /* FilterEngine.swift */; };
+		7BEA1EE7319C4A7ABAD9BE6D /* EditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E386EA0FD6445AA27809FC /* EditorViewModel.swift */; };
+		12D06C43C52A4BBE843A4FED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C968A5306BF485AB623C4FF /* ContentView.swift */; };
+		55A6E4FE2B374413B804AA0F /* PanelViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C8E2E9F3D04F79AE9A9064 /* PanelViews.swift */; };
+		9799947841B945B8BE66BD80 /* HistogramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85377EC107B4FA9B291BBF3 /* HistogramView.swift */; };
+		48BAD006363045A09E07FDD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67A04DD9C7D74BAEA3C4F8AE /* Assets.xcassets */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		E1D75BCF1DF54B3F886FFBE5 /* LensLab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LensLab.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A01881B707F940A7AD2C050A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		67A04DD9C7D74BAEA3C4F8AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B3F4CE486A994551BD55D88D /* LensLabApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LensLabApp.swift; sourceTree = "<group>"; };
+		652EC82943754D088B67A01A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		30363227A4A44FF6845DAA6B /* FilterEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterEngine.swift; sourceTree = "<group>"; };
+		02E386EA0FD6445AA27809FC /* EditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewModel.swift; sourceTree = "<group>"; };
+		7C968A5306BF485AB623C4FF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		89C8E2E9F3D04F79AE9A9064 /* PanelViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelViews.swift; sourceTree = "<group>"; };
+		C85377EC107B4FA9B291BBF3 /* HistogramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistogramView.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		56AE3C3B9942449AAA83EEF2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		0166997F0DA54FF69960489E = {
+			isa = PBXGroup;
+			children = (
+				371A7730D0444B4EB7B010AC /* LensLab */,
+				0511DD4422374415BCA41DB6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		0511DD4422374415BCA41DB6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				E1D75BCF1DF54B3F886FFBE5 /* LensLab.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		371A7730D0444B4EB7B010AC /* LensLab */ = {
+			isa = PBXGroup;
+			children = (
+				B3F4CE486A994551BD55D88D /* LensLabApp.swift */,
+				652EC82943754D088B67A01A /* Theme.swift */,
+				30363227A4A44FF6845DAA6B /* FilterEngine.swift */,
+				02E386EA0FD6445AA27809FC /* EditorViewModel.swift */,
+				7C968A5306BF485AB623C4FF /* ContentView.swift */,
+				89C8E2E9F3D04F79AE9A9064 /* PanelViews.swift */,
+				C85377EC107B4FA9B291BBF3 /* HistogramView.swift */,
+				67A04DD9C7D74BAEA3C4F8AE /* Assets.xcassets */,
+				A01881B707F940A7AD2C050A /* Info.plist */,
+			);
+			path = LensLab;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		816686A56F564C1890F3E6D9 /* LensLab */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 99C9EFB6E3DA4BFC9A460918 /* Build configuration list for PBXNativeTarget "LensLab" */;
+			buildPhases = (
+				1780877653CF4C1A9A26F0A4 /* Sources */,
+				56AE3C3B9942449AAA83EEF2 /* Frameworks */,
+				46CB0D11E46D4ED2A55CD6AA /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = LensLab;
+			packageProductDependencies = (
+			);
+			productName = LensLab;
+			productReference = E1D75BCF1DF54B3F886FFBE5 /* LensLab.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0D7FB5DA1D34451884785A78 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					816686A56F564C1890F3E6D9 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+				};
+			};
+			buildConfigurationList = 8582B8AECB634DB88448E12A /* Build configuration list for PBXProject "LensLab" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 0166997F0DA54FF69960489E;
+			productRefGroup = 0511DD4422374415BCA41DB6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				816686A56F564C1890F3E6D9 /* LensLab */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		46CB0D11E46D4ED2A55CD6AA /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				48BAD006363045A09E07FDD9 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		1780877653CF4C1A9A26F0A4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EDEBCE738BDD41C5BBF907EA /* LensLabApp.swift in Sources */,
+				344A3CBB43FB42EF80A06AC9 /* Theme.swift in Sources */,
+				97884F731635489DA0B93430 /* FilterEngine.swift in Sources */,
+				7BEA1EE7319C4A7ABAD9BE6D /* EditorViewModel.swift in Sources */,
+				12D06C43C52A4BBE843A4FED /* ContentView.swift in Sources */,
+				55A6E4FE2B374413B804AA0F /* PanelViews.swift in Sources */,
+				9799947841B945B8BE66BD80 /* HistogramView.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		30BCC05304404A1794091F20 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSET_CATALOG_COMPILER_OPTIMIZATION = space;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		892D5A1DBB9C48A39001D762 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSET_CATALOG_COMPILER_OPTIMIZATION = space;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F976B05742A74CCC9695BEBA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASHELEAF_LOCATION = "";
+				ASSET_CATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSET_CATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = LensLab/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LE_SWIFT_VERSION = 5.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lenslab.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		69439A1CBBA141E5A59D934F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSET_CATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSET_CATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = LensLab/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LE_SWIFT_VERSION = 5.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lenslab.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8582B8AECB634DB88448E12A /* Build configuration list for PBXProject "LensLab" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				30BCC05304404A1794091F20 /* Debug */,
+				892D5A1DBB9C48A39001D762 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		99C9EFB6E3DA4BFC9A460918 /* Build configuration list for PBXNativeTarget "LensLab" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F976B05742A74CCC9695BEBA /* Debug */,
+				69439A1CBBA141E5A59D934F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+	};
+	rootObject = 0D7FB5DA1D34451884785A78 /* Project object */;
+}

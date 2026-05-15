@@ -1,0 +1,312 @@
+import SwiftUI
+import PhotosUI
+
+struct ContentView: View {
+    @StateObject private var vm = EditorViewModel()
+
+    var body: some View {
+        ZStack {
+            Theme.bg.ignoresSafeArea()
+
+            VStack(spacing: 0) {
+                TopBar(vm: vm)
+                FilmStrip(vm: vm)
+                Divider().overlay(Theme.border)
+
+                // Canvas
+                CanvasView(vm: vm)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+                Divider().overlay(Theme.border)
+                TabBar(vm: vm)
+                BottomPanel(vm: vm)
+            }
+        }
+        .onChange(of: vm.photoPickerItem) { _ in vm.loadPickedPhoto() }
+    }
+}
+
+// MARK: - Top Bar
+struct TopBar: View {
+    @ObservedObject var vm: EditorViewModel
+    @State private var showExportSheet = false
+
+    var body: some View {
+        HStack(spacing: 14) {
+            // Logo
+            HStack(spacing: 0) {
+                Text("Lens")
+                    .font(.custom("Georgia", size: 20))
+                    .foregroundColor(Theme.accent)
+                Text("Lab")
+                    .font(.custom("Georgia-Italic", size: 20))
+                    .foregroundColor(Theme.accentDark)
+            }
+
+            Spacer()
+
+            PhotosPicker(selection: $vm.photoPickerItem, matching: .images) {
+                TopBarButton(label: "Import")
+            }
+
+            TopBarButton(label: "Before/After", isActive: vm.showBeforeAfter) {
+                vm.showBeforeAfter.toggle()
+            }
+
+            Button {
+                showExportSheet = true
+            } label: {
+                HStack(spacing: 4) {
+                    Text("Export")
+                        .font(.monoSmall)
+                        .kerning(1)
+                    Image(systemName: "arrow.up.right")
+                        .font(.system(size: 9, weight: .semibold))
+                }
+                .foregroundColor(Theme.surface)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 7)
+                .background(Theme.accent)
+                .cornerRadius(6)
+            }
+        }
+        .padding(.horizontal, 16)
+        .padding(.vertical, 10)
+        .background(Theme.surface)
+        .overlay(Divider().overlay(Theme.border), alignment: .bottom)
+    }
+}
+
+struct TopBarButton: View {
+    let label: String
+    var isActive: Bool = false
+    var action: (() -> Void)? = nil
+
+    var body: some View {
+        Button(action: { action?() }) {
+            Text(label.uppercased())
+                .font(.monoSmall)
+                .kerning(1)
+                .foregroundColor(isActive ? Theme.accent : Theme.muted)
+                .padding(.horizontal, 12)
+                .padding(.vertical, 7)
+                .background(Theme.bg)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 6)
+                        .stroke(isActive ? Theme.accent : Theme.border, lineWidth: 1)
+                )
+                .cornerRadius(6)
+        }
+    }
+}
+
+// MARK: - Film Strip
+struct FilmStrip: View {
+    @ObservedObject var vm: EditorViewModel
+
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 8) {
+                ForEach(vm.photos.indices, id: \.self) { i in
+                    FilmThumb(image: vm.photos[i],
+                              index: i,
+                              isActive: vm.activePhotoIndex == i) {
+                        vm.selectPhoto(i)
+                    }
+                }
+            }
+            .padding(.horizontal, 14)
+            .padding(.vertical, 10)
+        }
+        .background(Theme.surface)
+    }
+}
+
+struct FilmThumb: View {
+    let image: UIImage
+    let index: Int
+    let isActive: Bool
+    let onTap: () -> Void
+
+    var body: some View {
+        Button(action: onTap) {
+            ZStack(alignment: .bottomTrailing) {
+                Image(uiImage: image)
+                    .resizable()
+                    .aspectRatio(4/3, contentMode: .fill)
+                    .frame(width: 72, height: 54)
+                    .clipped()
+                    .cornerRadius(6)
+
+                Text(String(format: "%02d", index + 1))
+                    .font(.monoTiny)
+                    .foregroundColor(.white.opacity(0.8))
+                    .padding(.trailing, 4)
+                    .padding(.bottom, 3)
+            }
+            .overlay(
+                RoundedRectangle(cornerRadius: 6)
+                    .stroke(isActive ? Theme.accent : Color.clear, lineWidth: 2)
+            )
+        }
+    }
+}
+
+// MARK: - Canvas
+struct CanvasView: View {
+    @ObservedObject var vm: EditorViewModel
+
+    var body: some View {
+        ZStack {
+            Theme.canvasBg
+
+            if let img = vm.renderedImage {
+                if vm.showBeforeAfter {
+                    BeforeAfterView(before: vm.activePhoto, after: img)
+                        .padding(20)
+                } else {
+                    Image(uiImage: img)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .padding(20)
+                        .shadow(color: Color(hex:"#7A5A14").opacity(0.18), radius: 20, x: 0, y: 8)
+                        .transition(.opacity.animation(.easeInOut(duration: 0.25)))
+                }
+            } else {
+                ProgressView()
+                    .tint(Theme.accent)
+            }
+
+            // Filter name tag
+            VStack {
+                Spacer()
+                Text(vm.activeFilter.name.uppercased())
+                    .font(.monoTiny)
+                    .kerning(1.5)
+                    .foregroundColor(Theme.accent)
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 5)
+                    .background(Theme.surface.opacity(0.88))
+                    .overlay(
+                        Capsule().stroke(Theme.border, lineWidth: 1)
+                    )
+                    .clipShape(Capsule())
+                    .padding(.bottom, 12)
+            }
+
+            if vm.isProcessing {
+                Color.black.opacity(0.04)
+                ProgressView().tint(Theme.accent)
+            }
+        }
+    }
+}
+
+// MARK: - Before/After
+struct BeforeAfterView: View {
+    let before: UIImage
+    let after: UIImage
+    @State private var dividerX: CGFloat = 0.5
+
+    var body: some View {
+        GeometryReader { geo in
+            ZStack(alignment: .leading) {
+                Image(uiImage: after)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: geo.size.width, height: geo.size.height)
+
+                Image(uiImage: before)
+                    .resizable()
+                    .aspectRatio(contentMode: .fit)
+                    .frame(width: geo.size.width, height: geo.size.height)
+                    .mask(
+                        HStack(spacing: 0) {
+                            Color.black.frame(width: geo.size.width * dividerX)
+                            Color.clear
+                        }
+                    )
+
+                // Divider line
+                Rectangle()
+                    .fill(Theme.accent)
+                    .frame(width: 2)
+                    .offset(x: geo.size.width * dividerX - 1)
+
+                // Handle
+                Circle()
+                    .fill(Theme.accent)
+                    .frame(width: 28, height: 28)
+                    .overlay(
+                        Image(systemName: "arrow.left.and.right")
+                            .font(.system(size: 11, weight: .bold))
+                            .foregroundColor(.white)
+                    )
+                    .offset(x: geo.size.width * dividerX - 14, y: geo.size.height / 2 - 14)
+                    .gesture(
+                        DragGesture()
+                            .onChanged { v in
+                                let x = v.location.x / geo.size.width
+                                dividerX = min(max(x, 0.05), 0.95)
+                            }
+                    )
+            }
+            .onAppear { dividerX = 0.5 }
+        }
+    }
+}
+
+// MARK: - Tab Bar
+struct TabBar: View {
+    @ObservedObject var vm: EditorViewModel
+
+    var body: some View {
+        HStack(spacing: 0) {
+            ForEach(EditorViewModel.EditorTab.allCases, id: \.self) { tab in
+                Button {
+                    withAnimation(.easeInOut(duration: 0.18)) {
+                        vm.activeTab = tab
+                    }
+                } label: {
+                    VStack(spacing: 4) {
+                        Image(systemName: tab.icon)
+                            .font(.system(size: 16, weight: vm.activeTab == tab ? .semibold : .regular))
+                        Text(tab.rawValue.uppercased())
+                            .font(.monoTiny)
+                            .kerning(0.8)
+                    }
+                    .foregroundColor(vm.activeTab == tab ? Theme.accent : Theme.muted)
+                    .frame(maxWidth: .infinity)
+                    .padding(.vertical, 10)
+                    .overlay(
+                        Rectangle()
+                            .fill(Theme.accent)
+                            .frame(height: 2),
+                        alignment: .top
+                    )
+                    .opacity(vm.activeTab == tab ? 1 : 0.6)
+                    .animation(.easeInOut(duration: 0.18), value: vm.activeTab)
+                }
+            }
+        }
+        .background(Theme.surface)
+        .overlay(Divider().overlay(Theme.border), alignment: .top)
+    }
+}
+
+// MARK: - Bottom Panel
+struct BottomPanel: View {
+    @ObservedObject var vm: EditorViewModel
+
+    var body: some View {
+        Group {
+            switch vm.activeTab {
+            case .filters:
+                FilterStripPanel(vm: vm)
+            case .adjust, .detail:
+                AdjustmentPanel(vm: vm)
+            }
+        }
+        .background(Theme.panel)
+    }
+}
