@@ -5,9 +5,9 @@ import PhotosUI
 @MainActor
 class EditorViewModel: ObservableObject {
 
-    // MARK: - Photos
-    @Published var photos: [UIImage] = []
-    @Published var activePhotoIndex: Int = 0
+    // MARK: - Photo
+    @Published var photo: UIImage?
+    @Published var photoChangeID: UUID = UUID()
 
     // MARK: - Filter
     @Published var activeFilterIndex: Int = 0
@@ -21,7 +21,7 @@ class EditorViewModel: ObservableObject {
     @Published var showBeforeAfter: Bool = false
     @Published var isProcessing: Bool = false
     @Published var renderedImage: UIImage?
-    @Published var photoPickerItems: [PhotosPickerItem] = []
+    @Published var photoPickerItem: PhotosPickerItem?
 
     enum EditorTab: String, CaseIterable {
         case filters = "Filters"
@@ -37,19 +37,7 @@ class EditorViewModel: ObservableObject {
         }
     }
 
-    // MARK: - Init
-    init() {
-        // Generate 6 placeholder photos
-        for i in 0..<6 {
-            photos.append(FilterEngine.generatePlaceholder(seed: i * 37 + 11,
-                                                           size: CGSize(width: 800, height: 600)))
-        }
-        processImage()
-    }
-
     // MARK: - Computed
-    var activePhoto: UIImage { photos[activePhotoIndex] }
-
     var activeFilter: PhotoFilter { filters[activeFilterIndex] }
 
     var activeSectionsForTab: [AdjustmentSection] {
@@ -61,11 +49,6 @@ class EditorViewModel: ObservableObject {
     }
 
     // MARK: - Actions
-    func selectPhoto(_ index: Int) {
-        activePhotoIndex = index
-        processImage()
-    }
-
     func selectFilter(_ index: Int) {
         activeFilterIndex = index
         processImage()
@@ -89,8 +72,8 @@ class EditorViewModel: ObservableObject {
     }
 
     func processImage() {
+        guard let photo = photo else { return }
         isProcessing = true
-        let photo = activePhoto
         let filter = activeFilter
         let sections = adjustmentSections
 
@@ -112,22 +95,15 @@ class EditorViewModel: ObservableObject {
         }
     }
 
-    func loadPickedPhotos() {
-        let items = photoPickerItems
-        photoPickerItems = []
-        guard !items.isEmpty else { return }
+    func loadPickedPhoto() {
+        guard let item = photoPickerItem else { return }
         Task {
-            var loaded: [UIImage] = []
-            for item in items {
-                if let data = try? await item.loadTransferable(type: Data.self),
-                   let img = UIImage(data: data) {
-                    loaded.append(img)
-                }
+            if let data = try? await item.loadTransferable(type: Data.self),
+               let img = UIImage(data: data) {
+                photo = img
+                photoChangeID = UUID()
+                processImage()
             }
-            guard !loaded.isEmpty else { return }
-            photos.insert(contentsOf: loaded, at: 0)
-            activePhotoIndex = 0
-            processImage()
         }
     }
 }

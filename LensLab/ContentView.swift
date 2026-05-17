@@ -10,10 +10,8 @@ struct ContentView: View {
 
             VStack(spacing: 0) {
                 TopBar(vm: vm)
-//                FilmStrip(vm: vm)
                 Divider().overlay(Theme.border)
 
-                // Canvas
                 CanvasView(vm: vm)
                     .frame(maxWidth: .infinity, maxHeight: .infinity)
 
@@ -22,7 +20,7 @@ struct ContentView: View {
                 BottomPanel(vm: vm)
             }
         }
-        .onChange(of: vm.photoPickerItems) { _ in vm.loadPickedPhotos() }
+        .onChange(of: vm.photoPickerItem) { _ in vm.loadPickedPhoto() }
     }
 }
 
@@ -33,7 +31,6 @@ struct TopBar: View {
 
     var body: some View {
         HStack(spacing: 14) {
-            // Logo
             HStack(spacing: 0) {
                 Text("Lens")
                     .font(.custom("Georgia", size: 20))
@@ -45,9 +42,7 @@ struct TopBar: View {
 
             Spacer()
 
-            PhotosPicker(selection: $vm.photoPickerItems,
-                         maxSelectionCount: 20,
-                         matching: .images) {
+            PhotosPicker(selection: $vm.photoPickerItem, matching: .images) {
                 Text("IMPORT")
                     .font(.monoSmall)
                     .kerning(1)
@@ -61,10 +56,6 @@ struct TopBar: View {
                     )
                     .cornerRadius(6)
             }
-
-//            TopBarButton(label: "B/A", isActive: vm.showBeforeAfter) {
-//                vm.showBeforeAfter.toggle()
-//            }
 
             Button {
                 showExportSheet = true
@@ -95,81 +86,6 @@ struct TopBar: View {
     }
 }
 
-//struct TopBarButton: View {
-//    let label: String
-//    var isActive: Bool = false
-//    var action: (() -> Void)? = nil
-//
-//    var body: some View {
-//        Button(action: { action?() }) {
-//            Text(label.uppercased())
-//                .font(.monoSmall)
-//                .kerning(1)
-//                .foregroundColor(isActive ? Theme.accent : Theme.muted)
-//                .padding(.horizontal, 12)
-//                .padding(.vertical, 7)
-//                .background(Theme.bg)
-//                .overlay(
-//                    RoundedRectangle(cornerRadius: 6)
-//                        .stroke(isActive ? Theme.accent : Theme.border, lineWidth: 1)
-//                )
-//                .cornerRadius(6)
-//        }
-//    }
-//}
-
-// MARK: - Film Strip
-//struct FilmStrip: View {
-//    @ObservedObject var vm: EditorViewModel
-//
-//    var body: some View {
-//        ScrollView(.horizontal, showsIndicators: false) {
-//            HStack(spacing: 8) {
-//                ForEach(vm.photos.indices, id: \.self) { i in
-//                    FilmThumb(image: vm.photos[i],
-//                              index: i,
-//                              isActive: vm.activePhotoIndex == i) {
-//                        vm.selectPhoto(i)
-//                    }
-//                }
-//            }
-//            .padding(.horizontal, 14)
-//            .padding(.vertical, 10)
-//        }
-//        .background(Theme.surface)
-//    }
-//}
-
-struct FilmThumb: View {
-    let image: UIImage
-    let index: Int
-    let isActive: Bool
-    let onTap: () -> Void
-
-    var body: some View {
-        Button(action: onTap) {
-            ZStack(alignment: .bottomTrailing) {
-                Image(uiImage: image)
-                    .resizable()
-                    .aspectRatio(4/3, contentMode: .fill)
-                    .frame(width: 72, height: 54)
-                    .clipped()
-                    .cornerRadius(6)
-
-                Text(String(format: "%02d", index + 1))
-                    .font(.monoTiny)
-                    .foregroundColor(.white.opacity(0.8))
-                    .padding(.trailing, 4)
-                    .padding(.bottom, 3)
-            }
-            .overlay(
-                RoundedRectangle(cornerRadius: 6)
-                    .stroke(isActive ? Theme.accent : Color.clear, lineWidth: 2)
-            )
-        }
-    }
-}
-
 // MARK: - Canvas
 struct CanvasView: View {
     @ObservedObject var vm: EditorViewModel
@@ -179,37 +95,42 @@ struct CanvasView: View {
             Theme.canvasBg
 
             if let img = vm.renderedImage {
-                if vm.showBeforeAfter {
-                    BeforeAfterView(before: vm.activePhoto, after: img)
+                if vm.showBeforeAfter, let original = vm.photo {
+                    BeforeAfterView(before: original, after: img)
                         .padding(20)
                 } else {
                     Image(uiImage: img)
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .padding(20)
-                        .shadow(color: Color(hex:"#7A5A14").opacity(0.18), radius: 20, x: 0, y: 8)
+                        .shadow(color: Color(hex: "#7A5A14").opacity(0.18), radius: 20, x: 0, y: 8)
                         .transition(.opacity.animation(.easeInOut(duration: 0.25)))
                 }
             } else {
-                ProgressView()
-                    .tint(Theme.accent)
+                VStack(spacing: 10) {
+                    Image(systemName: "photo")
+                        .font(.system(size: 36, weight: .thin))
+                        .foregroundColor(Theme.muted)
+                    Text("Tap Import to get started")
+                        .font(.monoSmall)
+                        .foregroundColor(Theme.muted)
+                }
             }
 
-            // Filter name tag
-            VStack {
-                Spacer()
-                Text(vm.activeFilter.name.uppercased())
-                    .font(.monoTiny)
-                    .kerning(1.5)
-                    .foregroundColor(Theme.accent)
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 5)
-                    .background(Theme.surface.opacity(0.88))
-                    .overlay(
-                        Capsule().stroke(Theme.border, lineWidth: 1)
-                    )
-                    .clipShape(Capsule())
-                    .padding(.bottom, 12)
+            if let _ = vm.renderedImage {
+                VStack {
+                    Spacer()
+                    Text(vm.activeFilter.name.uppercased())
+                        .font(.monoTiny)
+                        .kerning(1.5)
+                        .foregroundColor(Theme.accent)
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 5)
+                        .background(Theme.surface.opacity(0.88))
+                        .overlay(Capsule().stroke(Theme.border, lineWidth: 1))
+                        .clipShape(Capsule())
+                        .padding(.bottom, 12)
+                }
             }
 
             if vm.isProcessing {
@@ -245,13 +166,11 @@ struct BeforeAfterView: View {
                         }
                     )
 
-                // Divider line
                 Rectangle()
                     .fill(Theme.accent)
                     .frame(width: 2)
                     .offset(x: geo.size.width * dividerX - 1)
 
-                // Handle
                 Circle()
                     .fill(Theme.accent)
                     .frame(width: 28, height: 28)
@@ -338,9 +257,4 @@ struct ShareSheet: UIViewControllerRepresentable {
     }
 
     func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
-}
-
-
-#Preview {
-    ContentView()
 }

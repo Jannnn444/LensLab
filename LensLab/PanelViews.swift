@@ -22,11 +22,11 @@ struct FilterStripPanel: View {
             .padding(.vertical, 14)
         }
         .onAppear { generateThumbnails() }
-        .onChange(of: vm.activePhotoIndex) { _ in generateThumbnails() }
+        .onChange(of: vm.photoChangeID) { _ in generateThumbnails() }
     }
 
     func generateThumbnails() {
-        let photo = vm.activePhoto
+        guard let photo = vm.photo else { return }
         for (i, filter) in vm.filters.enumerated() {
             Task.detached(priority: .background) {
                 guard let ci = CIImage(image: photo) else { return }
