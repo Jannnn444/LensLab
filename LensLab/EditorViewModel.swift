@@ -21,7 +21,7 @@ class EditorViewModel: ObservableObject {
     @Published var showBeforeAfter: Bool = false
     @Published var isProcessing: Bool = false
     @Published var renderedImage: UIImage?
-    @Published var photoPickerItem: PhotosPickerItem?
+    @Published var photoPickerItems: [PhotosPickerItem] = []
 
     enum EditorTab: String, CaseIterable {
         case filters = "Filters"
@@ -95,7 +95,13 @@ class EditorViewModel: ObservableObject {
         let sections = adjustmentSections
 
         Task.detached(priority: .userInitiated) {
-            guard let ci = CIImage(image: photo) else { return }
+            guard let ci = CIImage(image: photo) else {
+                await MainActor.run {
+                    self.renderedImage = photo
+                    self.isProcessing = false
+                }
+                return
+            }
             let filtered = filter.apply(ci)
             let adjusted = FilterEngine.applyAdjustments(filtered, sections: sections)
             let out = FilterEngine.render(adjusted, size: CGSize(width: 1200, height: 900))
@@ -106,15 +112,22 @@ class EditorViewModel: ObservableObject {
         }
     }
 
-    func loadPickedPhoto() {
-        guard let item = photoPickerItem else { return }
+    func loadPickedPhotos() {
+        let items = photoPickerItems
+        photoPickerItems = []
+        guard !items.isEmpty else { return }
         Task {
-            if let data = try? await item.loadTransferable(type: Data.self),
-               let img = UIImage(data: data) {
-                photos.insert(img, at: 0)
-                activePhotoIndex = 0
-                processImage()
+            var loaded: [UIImage] = []
+            for item in items {
+                if let data = try? await item.loadTransferable(type: Data.self),
+                   let img = UIImage(data: data) {
+                    loaded.append(img)
+                }
             }
+            guard !loaded.isEmpty else { return }
+            photos.insert(contentsOf: loaded, at: 0)
+            activePhotoIndex = 0
+            processImage()
         }
     }
 }

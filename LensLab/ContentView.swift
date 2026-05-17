@@ -10,7 +10,7 @@ struct ContentView: View {
 
             VStack(spacing: 0) {
                 TopBar(vm: vm)
-                FilmStrip(vm: vm)
+//                FilmStrip(vm: vm)
                 Divider().overlay(Theme.border)
 
                 // Canvas
@@ -22,7 +22,7 @@ struct ContentView: View {
                 BottomPanel(vm: vm)
             }
         }
-        .onChange(of: vm.photoPickerItem) { _ in vm.loadPickedPhoto() }
+        .onChange(of: vm.photoPickerItems) { _ in vm.loadPickedPhotos() }
     }
 }
 
@@ -45,13 +45,26 @@ struct TopBar: View {
 
             Spacer()
 
-            PhotosPicker(selection: $vm.photoPickerItem, matching: .images) {
-                TopBarButton(label: "Import")
+            PhotosPicker(selection: $vm.photoPickerItems,
+                         maxSelectionCount: 20,
+                         matching: .images) {
+                Text("IMPORT")
+                    .font(.monoSmall)
+                    .kerning(1)
+                    .foregroundColor(Theme.muted)
+                    .padding(.horizontal, 12)
+                    .padding(.vertical, 7)
+                    .background(Theme.bg)
+                    .overlay(
+                        RoundedRectangle(cornerRadius: 6)
+                            .stroke(Theme.border, lineWidth: 1)
+                    )
+                    .cornerRadius(6)
             }
 
-            TopBarButton(label: "Before/After", isActive: vm.showBeforeAfter) {
-                vm.showBeforeAfter.toggle()
-            }
+//            TopBarButton(label: "B/A", isActive: vm.showBeforeAfter) {
+//                vm.showBeforeAfter.toggle()
+//            }
 
             Button {
                 showExportSheet = true
@@ -74,53 +87,58 @@ struct TopBar: View {
         .padding(.vertical, 10)
         .background(Theme.surface)
         .overlay(Divider().overlay(Theme.border), alignment: .bottom)
-    }
-}
-
-struct TopBarButton: View {
-    let label: String
-    var isActive: Bool = false
-    var action: (() -> Void)? = nil
-
-    var body: some View {
-        Button(action: { action?() }) {
-            Text(label.uppercased())
-                .font(.monoSmall)
-                .kerning(1)
-                .foregroundColor(isActive ? Theme.accent : Theme.muted)
-                .padding(.horizontal, 12)
-                .padding(.vertical, 7)
-                .background(Theme.bg)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 6)
-                        .stroke(isActive ? Theme.accent : Theme.border, lineWidth: 1)
-                )
-                .cornerRadius(6)
+        .sheet(isPresented: $showExportSheet) {
+            if let img = vm.renderedImage {
+                ShareSheet(items: [img])
+            }
         }
     }
 }
+
+//struct TopBarButton: View {
+//    let label: String
+//    var isActive: Bool = false
+//    var action: (() -> Void)? = nil
+//
+//    var body: some View {
+//        Button(action: { action?() }) {
+//            Text(label.uppercased())
+//                .font(.monoSmall)
+//                .kerning(1)
+//                .foregroundColor(isActive ? Theme.accent : Theme.muted)
+//                .padding(.horizontal, 12)
+//                .padding(.vertical, 7)
+//                .background(Theme.bg)
+//                .overlay(
+//                    RoundedRectangle(cornerRadius: 6)
+//                        .stroke(isActive ? Theme.accent : Theme.border, lineWidth: 1)
+//                )
+//                .cornerRadius(6)
+//        }
+//    }
+//}
 
 // MARK: - Film Strip
-struct FilmStrip: View {
-    @ObservedObject var vm: EditorViewModel
-
-    var body: some View {
-        ScrollView(.horizontal, showsIndicators: false) {
-            HStack(spacing: 8) {
-                ForEach(vm.photos.indices, id: \.self) { i in
-                    FilmThumb(image: vm.photos[i],
-                              index: i,
-                              isActive: vm.activePhotoIndex == i) {
-                        vm.selectPhoto(i)
-                    }
-                }
-            }
-            .padding(.horizontal, 14)
-            .padding(.vertical, 10)
-        }
-        .background(Theme.surface)
-    }
-}
+//struct FilmStrip: View {
+//    @ObservedObject var vm: EditorViewModel
+//
+//    var body: some View {
+//        ScrollView(.horizontal, showsIndicators: false) {
+//            HStack(spacing: 8) {
+//                ForEach(vm.photos.indices, id: \.self) { i in
+//                    FilmThumb(image: vm.photos[i],
+//                              index: i,
+//                              isActive: vm.activePhotoIndex == i) {
+//                        vm.selectPhoto(i)
+//                    }
+//                }
+//            }
+//            .padding(.horizontal, 14)
+//            .padding(.vertical, 10)
+//        }
+//        .background(Theme.surface)
+//    }
+//}
 
 struct FilmThumb: View {
     let image: UIImage
@@ -309,4 +327,20 @@ struct BottomPanel: View {
         }
         .background(Theme.panel)
     }
+}
+
+// MARK: - Share Sheet
+struct ShareSheet: UIViewControllerRepresentable {
+    let items: [Any]
+
+    func makeUIViewController(context: Context) -> UIActivityViewController {
+        UIActivityViewController(activityItems: items, applicationActivities: nil)
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: Context) {}
+}
+
+
+#Preview {
+    ContentView()
 }

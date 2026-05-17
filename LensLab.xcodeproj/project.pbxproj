@@ -1,32 +1,33 @@
 // !$*UTF8*$!
 {
 	archiveVersion = 1;
-	classes = {};
+	classes = {
+	};
 	objectVersion = 56;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		EDEBCE738BDD41C5BBF907EA /* LensLabApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F4CE486A994551BD55D88D /* LensLabApp.swift */; };
-		344A3CBB43FB42EF80A06AC9 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652EC82943754D088B67A01A /* Theme.swift */; };
-		97884F731635489DA0B93430 /* FilterEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30363227A4A44FF6845DAA6B /* FilterEngine.swift */; };
-		7BEA1EE7319C4A7ABAD9BE6D /* EditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E386EA0FD6445AA27809FC /* EditorViewModel.swift */; };
 		12D06C43C52A4BBE843A4FED /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C968A5306BF485AB623C4FF /* ContentView.swift */; };
-		55A6E4FE2B374413B804AA0F /* PanelViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C8E2E9F3D04F79AE9A9064 /* PanelViews.swift */; };
-		9799947841B945B8BE66BD80 /* HistogramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85377EC107B4FA9B291BBF3 /* HistogramView.swift */; };
+		344A3CBB43FB42EF80A06AC9 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652EC82943754D088B67A01A /* Theme.swift */; };
 		48BAD006363045A09E07FDD9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 67A04DD9C7D74BAEA3C4F8AE /* Assets.xcassets */; };
+		55A6E4FE2B374413B804AA0F /* PanelViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89C8E2E9F3D04F79AE9A9064 /* PanelViews.swift */; };
+		7BEA1EE7319C4A7ABAD9BE6D /* EditorViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02E386EA0FD6445AA27809FC /* EditorViewModel.swift */; };
+		97884F731635489DA0B93430 /* FilterEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30363227A4A44FF6845DAA6B /* FilterEngine.swift */; };
+		9799947841B945B8BE66BD80 /* HistogramView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C85377EC107B4FA9B291BBF3 /* HistogramView.swift */; };
+		EDEBCE738BDD41C5BBF907EA /* LensLabApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B3F4CE486A994551BD55D88D /* LensLabApp.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E1D75BCF1DF54B3F886FFBE5 /* LensLab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LensLab.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		A01881B707F940A7AD2C050A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		67A04DD9C7D74BAEA3C4F8AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		B3F4CE486A994551BD55D88D /* LensLabApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LensLabApp.swift; sourceTree = "<group>"; };
-		652EC82943754D088B67A01A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
-		30363227A4A44FF6845DAA6B /* FilterEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterEngine.swift; sourceTree = "<group>"; };
 		02E386EA0FD6445AA27809FC /* EditorViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViewModel.swift; sourceTree = "<group>"; };
+		30363227A4A44FF6845DAA6B /* FilterEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterEngine.swift; sourceTree = "<group>"; };
+		652EC82943754D088B67A01A /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; sourceTree = "<group>"; };
+		67A04DD9C7D74BAEA3C4F8AE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		7C968A5306BF485AB623C4FF /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		89C8E2E9F3D04F79AE9A9064 /* PanelViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PanelViews.swift; sourceTree = "<group>"; };
+		A01881B707F940A7AD2C050A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B3F4CE486A994551BD55D88D /* LensLabApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LensLabApp.swift; sourceTree = "<group>"; };
 		C85377EC107B4FA9B291BBF3 /* HistogramView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistogramView.swift; sourceTree = "<group>"; };
+		E1D75BCF1DF54B3F886FFBE5 /* LensLab.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = LensLab.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -217,6 +218,30 @@
 			};
 			name = Debug;
 		};
+		69439A1CBBA141E5A59D934F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSET_CATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSET_CATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 362GN5DA84;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = LensLab/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				LE_SWIFT_VERSION = 5.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lenslab.app;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		892D5A1DBB9C48A39001D762 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -255,6 +280,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "";
+				DEVELOPMENT_TEAM = 362GN5DA84;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = NO;
 				INFOPLIST_FILE = LensLab/Info.plist;
@@ -270,29 +296,6 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
-		};
-		69439A1CBBA141E5A59D934F /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSET_CATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSET_CATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				ENABLE_PREVIEWS = YES;
-				GENERATE_INFOPLIST_FILE = NO;
-				INFOPLIST_FILE = LensLab/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
-				LE_SWIFT_VERSION = 5.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.lenslab.app;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = iphoneos;
-				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SWIFT_EMIT_LOC_STRINGS = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -316,7 +319,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
 	};
 	rootObject = 0D7FB5DA1D34451884785A78 /* Project object */;
 }
